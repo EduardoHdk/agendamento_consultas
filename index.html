@@ -60,7 +60,7 @@
 
     <main class="container">
         <div class="grid">
-            <!-- Agendar Consulta -->
+            
             <section id="agendar">
                 <hgroup>
                     <h2>Agendar Consulta</h2>
@@ -83,7 +83,7 @@
                 </form>
             </section>
 
-            <!-- Listar Consultas -->
+            
             <section id="listar">
                 <hgroup>
                     <h2>Listar Consultas</h2>
@@ -94,7 +94,7 @@
                 </div>
             </section>
 
-            <!-- Cancelar Consultas -->
+            
             <section id="cancelar">
                 <hgroup>
                     <h2>Cancelar Consultas</h2>
@@ -114,15 +114,14 @@
     </footer>
 
     <script>
-        // Lista de consultas
+        
         let consultas = [];
 
-        // Referências ao DOM
+        
         const formAgendar = document.getElementById("form-agendar");
         const consultasDiv = document.getElementById("consultas");
         const cancelarDiv = document.getElementById("cancelar-consulta");
 
-        // Função para atualizar a lista de consultas
         function atualizarConsultas() {
             if (consultas.length === 0) {
                 consultasDiv.innerHTML = "<p>Nenhuma consulta agendada no momento.</p>";
@@ -144,7 +143,6 @@
             }
         }
 
-        // Função para agendar consulta
         formAgendar.addEventListener("submit", (event) => {
             event.preventDefault();
 
@@ -162,14 +160,12 @@
             atualizarConsultas();
         });
 
-        // Função para cancelar consulta
         function cancelarConsulta(index) {
             consultas.splice(index, 1);
             alert("Consulta cancelada com sucesso!");
             atualizarConsultas();
         }
 
-        // Inicializa a lista de consultas
         atualizarConsultas();
     </script>
 </body>
