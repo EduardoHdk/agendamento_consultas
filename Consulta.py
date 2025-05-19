@@ -1,9 +1,7 @@
 from datetime import datetime
 
-# Lista para armazenar consultas
 consultas = []
 
-# Função para exibir o menu principal
 def menu():
     while True:
         print("\n--- Sistema de Agendamento ---")
@@ -17,7 +15,6 @@ def menu():
         else:
             print("Opção inválida! Digite um número de 1 a 4.")
 
-# Função para validar a data
 def validar_data(data):
     try:
         data_obj = datetime.strptime(data, "%d/%m/%Y").date()
@@ -31,7 +28,6 @@ def validar_data(data):
         print("Formato de data inválido. Use DD/MM/AAAA (ex: 20/05/2025).")
         return False
 
-# Função para validar o horário
 def validar_horario(horario):
     try:
         horario_obj = datetime.strptime(horario, "%H:%M").time()
@@ -46,7 +42,6 @@ def validar_horario(horario):
         print("Formato de horário inválido. Use HH:MM (ex: 14:00).")
         return False
 
-# Função para agendar uma consulta
 def agendar_consulta():
     print("\n--- Agendar Consulta ---")
     nome_paciente = input("Nome do paciente: ")
@@ -66,7 +61,6 @@ def agendar_consulta():
     consultas.append(consulta)
     print("Consulta agendada com sucesso!")
 
-# Função para listar consultas
 def listar_consultas():
     print("\n--- Consultas Agendadas ---")
     if len(consultas) == 0:
@@ -75,7 +69,6 @@ def listar_consultas():
         for i, consulta in enumerate(consultas, start=1):
             print(f"{i}. {consulta['paciente']} - {consulta['especialidade']} - {consulta['data']} - {consulta['horario']}")
 
-# Função para cancelar uma consulta
 def cancelar_consulta():
     print("\n--- Cancelar Consulta ---")
     listar_consultas()
@@ -92,7 +85,6 @@ def cancelar_consulta():
     else:
         print("Não há consultas para cancelar.")
 
-# Função principal para executar o sistema
 def executar_sistema():
     while True:
         opcao = menu()
@@ -106,5 +98,4 @@ def executar_sistema():
             print("Saindo do sistema...")
             break
 
-# Executa o sistema
 executar_sistema()
