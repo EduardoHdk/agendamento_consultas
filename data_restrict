@@ -1,0 +1,33 @@
+<label for="data">Data da Consulta</label>
+<input type="date" id="data" name="data" required>
+<script>
+    // Configurar a data mínima no campo de data
+    const inputData = document.getElementById("data");
+    const hoje = new Date().toISOString().split("T")[0];
+    inputData.setAttribute("min", hoje);
+
+    // Formulário de agendamento
+    formAgendar.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const paciente = document.getElementById("paciente").value;
+        const especialidade = document.getElementById("especialidade").value;
+        const data = document.getElementById("data").value;
+        const horario = document.getElementById("horario").value;
+
+        // Validação adicional da data
+        const dataAtual = new Date().toISOString().split("T")[0];
+        if (data < dataAtual) {
+            alert("Data inválida. Apenas datas futuras ou de hoje são permitidas.");
+            return;
+        }
+
+        const novaConsulta = { paciente, especialidade, data, horario };
+        consultas.push(novaConsulta);
+
+        formAgendar.reset();
+        alert("Consulta agendada com sucesso!");
+
+        atualizarConsultas();
+    });
+</script>
