@@ -9,7 +9,7 @@ def menu():
         print("2. Listar consultas")
         print("3. Cancelar consultas")
         print("4. Sair")
-        opcao = input("Escolha uma opção: ")  # Entrada do usuário
+        opcao = input("Escolha uma opção: ")  
         if opcao.isdigit() and 1 <= int(opcao) <= 4:  # Valida se é um número entre 1 e 4
             return int(opcao)  # Retorna a opção válida
         else:
