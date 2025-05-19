@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistema de Agendamento de Consultas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        form input, form button {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #consultas ul {
+            padding-left: 20px;
+        }
+
+        #consultas li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Agendamento de Consultas</strong></li>
+        </ul>
+        <ul>
+            <li><a href="#agendar">Agendar</a></li>
+            <li><a href="#listar">Listar</a></li>
+            <li><a href="#cancelar" role="button">Cancelar</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div class="grid">
+            <!-- Agendar Consulta -->
+            <section id="agendar">
+                <hgroup>
+                    <h2>Agendar Consulta</h2>
+                    <h3>Preencha as informações abaixo:</h3>
+                </hgroup>
+                <form id="form-agendar">
+                    <label for="paciente">Nome do Paciente</label>
+                    <input type="text" id="paciente" name="paciente" placeholder="Ex.: João Silva" required>
+                    
+                    <label for="especialidade">Especialidade</label>
+                    <input type="text" id="especialidade" name="especialidade" placeholder="Ex.: Cardiologia" required>
+                    
+                    <label for="data">Data da Consulta</label>
+                    <input type="date" id="data" name="data" required>
+                    
+                    <label for="horario">Horário</label>
+                    <input type="time" id="horario" name="horario" required>
+                    
+                    <button type="submit">Agendar Consulta</button>
+                </form>
+            </section>
+
+            <!-- Listar Consultas -->
+            <section id="listar">
+                <hgroup>
+                    <h2>Listar Consultas</h2>
+                    <h3>Consultas Agendadas</h3>
+                </hgroup>
+                <div id="consultas">
+                    <p>Nenhuma consulta agendada no momento.</p>
+                </div>
+            </section>
+
+            <!-- Cancelar Consultas -->
+            <section id="cancelar">
+                <hgroup>
+                    <h2>Cancelar Consultas</h2>
+                    <h3>Selecione uma consulta para cancelar:</h3>
+                </hgroup>
+                <div id="cancelar-consulta">
+                    <p>Nenhuma consulta disponível para cancelamento.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="container">
+        <small>
+            <a href="#agendar">Agendar</a> • <a href="#listar">Listar</a> • <a href="#cancelar">Cancelar</a>
+        </small>
+    </footer>
+
+    <script>
+        // Lista de consultas
+        let consultas = [];
+
+        // Referências ao DOM
+        const formAgendar = document.getElementById("form-agendar");
+        const consultasDiv = document.getElementById("consultas");
+        const cancelarDiv = document.getElementById("cancelar-consulta");
+
+        // Função para atualizar a lista de consultas
+        function atualizarConsultas() {
+            if (consultas.length === 0) {
+                consultasDiv.innerHTML = "<p>Nenhuma consulta agendada no momento.</p>";
+                cancelarDiv.innerHTML = "<p>Nenhuma consulta disponível para cancelamento.</p>";
+            } else {
+                let listaConsultas = "<ul>";
+                let listaCancelar = "<ul>";
+
+                consultas.forEach((consulta, index) => {
+                    listaConsultas += `<li>${consulta.paciente} - ${consulta.especialidade} - ${consulta.data} - ${consulta.horario}</li>`;
+                    listaCancelar += `<li>${consulta.paciente} - ${consulta.especialidade} - ${consulta.data} - ${consulta.horario} <button onclick="cancelarConsulta(${index})">Cancelar</button></li>`;
+                });
+
+                listaConsultas += "</ul>";
+                listaCancelar += "</ul>";
+
+                consultasDiv.innerHTML = listaConsultas;
+                cancelarDiv.innerHTML = listaCancelar;
+            }
+        }
+
+        // Função para agendar consulta
+        formAgendar.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const paciente = document.getElementById("paciente").value;
+            const especialidade = document.getElementById("especialidade").value;
+            const data = document.getElementById("data").value;
+            const horario = document.getElementById("horario").value;
+
+            const novaConsulta = { paciente, especialidade, data, horario };
+            consultas.push(novaConsulta);
+
+            formAgendar.reset();
+            alert("Consulta agendada com sucesso!");
+
+            atualizarConsultas();
+        });
+
+        // Função para cancelar consulta
+        function cancelarConsulta(index) {
+            consultas.splice(index, 1);
+            alert("Consulta cancelada com sucesso!");
+            atualizarConsultas();
+        }
+
+        // Inicializa a lista de consultas
+        atualizarConsultas();
+    </script>
+</body>
+</html>
